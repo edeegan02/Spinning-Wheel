@@ -9,11 +9,30 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./wheel.css'],
 })
 export class Wheel implements AfterViewInit {
-  items: string[] = ['Apple', 'Banana', 'Cherry']; // Default items
+  items: string[] = [
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Mango',
+    'Grape',
+    'Orange',
+    'Durian',
+    'Plum',
+    'Dragonfruit',
+    'Kiwi',
+    'Pineapple',
+    'Star fruit',
+    'Watermelon',
+    'Blueberry',
+    'Strawberry',
+    'Orange',
+  ]; // Default items
   newItem: string = '';
 
   ngAfterViewInit(): void {
-    this.drawWheel();
+    setTimeout(() => {
+      this.drawWheel();
+    }, 10);
   }
 
   addItem(): void {
@@ -24,6 +43,11 @@ export class Wheel implements AfterViewInit {
     }
   }
 
+  spin = () => {
+    this.drawWheel();
+  };
+
+  rotation_angle: number = 0;
   drawWheel(): void {
     const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
@@ -32,18 +56,19 @@ export class Wheel implements AfterViewInit {
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 150;
+    const radius = 300;
 
     const segmentAngle = (2 * Math.PI) / this.items.length;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous draw
-
+    // let rotation = 90;
     this.items.forEach((item, index) => {
-      const startAngle = index * segmentAngle;
+      // const startAngle = index + segmentAngle;
+      const startAngle = index * segmentAngle + this.rotation_angle;
       const endAngle = startAngle + segmentAngle;
 
       // Set color
-      ctx.fillStyle = `hsl(${(index * 360) / this.items.length}, 80%, 70%)`;
+      ctx.fillStyle = `hsl(${(index * 360) / this.items.length}, 80%, 60%)`;
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
       ctx.arc(centerX, centerY, radius, startAngle, endAngle);
@@ -51,6 +76,7 @@ export class Wheel implements AfterViewInit {
       ctx.fill();
 
       // Draw text
+      // const textAngle = startAngle + segmentAngle / 2;
       const textAngle = startAngle + segmentAngle / 2;
       const textX = centerX + Math.cos(textAngle) * (radius * 0.6);
       const textY = centerY + Math.sin(textAngle) * (radius * 0.6);
@@ -59,6 +85,8 @@ export class Wheel implements AfterViewInit {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(item, textX, textY);
+      // ctx.rotate(90);
     });
+    this.rotation_angle++;
   }
 }
