@@ -4,7 +4,11 @@
     id="myCanvas"
     width="400"
     height="400"
-    style="border: 1px solid #000000"
+    style="border: 1px solid #fdfdfd"
   ></canvas>
+  <br /> 
+  <input [(ngModel)]="newItem" placeholder="Add item" />
+  <button (click)="addItem()">Add</button>
+  <button (click)="spinWheel()">Spin</button>
   <script src="wheel.ts"></script>
 </body>
