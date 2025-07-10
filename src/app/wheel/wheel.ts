@@ -9,7 +9,24 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./wheel.css'],
 })
 export class Wheel implements AfterViewInit {
-  items: string[] = ['Apple', 'Banana', 'Cherry']; // Default items
+  items: string[] = [
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Mango',
+    'Grape',
+    'Orange',
+    'Durian',
+    'Plum',
+    'Dragonfruit',
+    'Kiwi',
+    'Pineapple',
+    'Star fruit',
+    'Watermelon',
+    'Blueberry',
+    'Strawberry',
+    'Orange',
+  ]; // Default items
   newItem: string = '';
 
   rotationAngle = 0
@@ -52,6 +69,11 @@ export class Wheel implements AfterViewInit {
     }
   }
 
+  spin = () => {
+    this.drawWheel();
+  };
+
+  rotation_angle: number = 0;
   drawWheel(): void {
     const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d');
@@ -70,7 +92,8 @@ export class Wheel implements AfterViewInit {
     ctx.rotate(this.rotationAngle);
 
     this.items.forEach((item, index) => {
-      const startAngle = index * segmentAngle;
+      // const startAngle = index + segmentAngle;
+      const startAngle = index * segmentAngle + this.rotation_angle;
       const endAngle = startAngle + segmentAngle;
 
       // Set color
@@ -82,6 +105,7 @@ export class Wheel implements AfterViewInit {
       ctx.fill();
 
       // Draw text
+      // const textAngle = startAngle + segmentAngle / 2;
       const textAngle = startAngle + segmentAngle / 2;
       const textX = Math.cos(textAngle) * (radius * 0.6);
       const textY = Math.sin(textAngle) * (radius * 0.6);

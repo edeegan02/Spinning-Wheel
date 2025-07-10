@@ -1,18 +1,32 @@
 canvas {
-    display: block;
-    margin: 20px auto;
+  display: block;
+  margin: 20px auto;
+  /* animation: rotate 60s infinite; */
 }
 
+/* @keyframes rotate {
+  50% {
+    transform: rotate(36000deg);
+  }
+} */
+
 input {
-    margin: 10px;
-    padding: 5px;
+  margin: 10px;
+  padding: 5px;
 }
 
 button {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
+}
+
+#spinButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
 }
