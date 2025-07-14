@@ -1,11 +1,24 @@
-<p class="hello">Wheel Ig</p>
-<button (click)="spin()">clickme</button>
-<!-- <body> -->
-<canvas
-  id="myCanvas"
-  width="600"
-  height="600"
-  style="border: 1px solid #fffdfd"
-></canvas>
-<!-- <script src="wheel.ts"></script> -->
-<!-- </body> -->
+<!-- <p style="color: white">Wheel Ig</p> -->
+
+<div class="container">
+  <div class="column">
+    <div class="Drag">
+      <input [(ngModel)]="newItem" placeholder="Add item" />
+    </div>
+
+    <button id="AddItem" (click)="addItem()">Add</button>
+    <button (click)="spinWheel()">Spin</button>
+    <textarea (ngModelChange)="MakeArr()" [(ngModel)]="items"></textarea>
+  </div>
+
+  <div class="column">
+    <canvas
+      id="myCanvas"
+      width="600"
+      height="600"
+      style="border: 1px solid #333"
+      >Section 2</canvas
+    >
+  </div>
+  <div class="column">Section 3</div>
+</div>

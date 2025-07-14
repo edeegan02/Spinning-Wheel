@@ -30,3 +30,15 @@ ul {
   font-size: 1.2em;
   cursor: pointer;
 }
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.column {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid #333;
+  box-sizing: border-box;
+}
