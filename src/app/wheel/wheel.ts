@@ -1,5 +1,5 @@
 // import { DragDropModule } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 //
 //
 export class Wheel implements AfterViewInit {
+  @ViewChild('arrowCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
+  private ctx!: CanvasRenderingContext2D;
   items: string[] = [
     'Apple',
     'Banana',
@@ -29,6 +31,8 @@ export class Wheel implements AfterViewInit {
   spinning = false;
 
   ngAfterViewInit(): void {
+    const canvas = this.canvasRef.nativeElement;
+    // this.drawTriangle();
     this.drawWheel();
   }
 
@@ -44,19 +48,19 @@ export class Wheel implements AfterViewInit {
 
   Drag = document.getElementById('card');
 
-  // getRandomIntInclusive(min: number, max: number) {
-  //   const minCeiled = Math.ceil(min);
-  //   const maxFloored = Math.floor(max);
-  //   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
-  //   console.log(this.getRandomIntInclusive());
-  // }
+  getRandomInteger(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   spinWheel(): void {
     if (this.spinning) return;
     this.spinning = true;
 
-    let velocity = 2.0; // initial speed
-    const friction = 0.98; // slows over time
+    let velocity = 100.0 * this.getRandomInteger(1, 6); // initial speed
+    console.log('velocity:', velocity);
+    const friction = 0.975; // slows over time
 
     const animate = () => {
       if (velocity > 0.002) {

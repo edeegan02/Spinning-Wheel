@@ -42,3 +42,14 @@ ul {
   border: 1px solid #333;
   box-sizing: border-box;
 }
+
+.info {
+  display: flex;
+  flex-direction: column;
+  /* background-color: aquamarine; */
+}
+
+.action-button {
+  width: 50px;
+  height: 25px;
+}

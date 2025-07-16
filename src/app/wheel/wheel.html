@@ -1,13 +1,16 @@
 <!-- <p style="color: white">Wheel Ig</p> -->
 
 <div class="container">
-  <div class="column">
-    <div class="Drag">
-      <input [(ngModel)]="newItem" placeholder="Add item" />
+  <div class="column info">
+    <input [(ngModel)]="newItem" placeholder="Add item" />
+
+    <div class="button-container">
+      <button class="action-button" id="AddItem" (click)="addItem()">
+        Add
+      </button>
+      <button class="action-button" (click)="spinWheel()">Spin</button>
     </div>
 
-    <button id="AddItem" (click)="addItem()">Add</button>
-    <button (click)="spinWheel()">Spin</button>
     <textarea (ngModelChange)="MakeArr()" [(ngModel)]="items"></textarea>
   </div>
 
@@ -17,8 +20,18 @@
       width="600"
       height="600"
       style="border: 1px solid #333"
-      >Section 2</canvas
-    >
+      >Section 2
+    </canvas>
+    <div></div>
+
+    <!-- <canvas
+      #arrowCanvas
+      width="400"
+      height="400"
+      style="border: 1px solid #000000"
+    > -->
+    <!-- </canvas> -->
+    <!-- <button (click)="drawArrow()">Draw Arrow</button> -->
   </div>
-  <div class="column">Section 3</div>
+  <div class="column" text-color: #333>Section 3</div>
 </div>
