@@ -32,7 +32,6 @@ export class Wheel implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const canvas = this.canvasRef.nativeElement;
-    // this.drawTriangle();
     this.drawWheel();
   }
 
@@ -54,6 +53,7 @@ export class Wheel implements AfterViewInit {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  //function for spinning wheel
   spinWheel(): void {
     if (this.spinning) return;
     this.spinning = true;
@@ -81,6 +81,7 @@ export class Wheel implements AfterViewInit {
       this.items.push(this.newItem.trim());
       this.newItem = '';
       this.drawWheel(); // Redraw with new item
+      // this.triangle();
     }
   }
 
@@ -136,5 +137,32 @@ export class Wheel implements AfterViewInit {
       ctx.restore();
     });
     ctx.restore();
+    this.triangle();
+  }
+
+  triangle(): void {
+    const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) return;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = 300;
+
+    const triangleWidth = 50;
+    const triangleHeight = 80;
+
+    const tipX = centerX + radius + 20;
+    const tipY = centerY;
+
+    ctx.beginPath();
+    ctx.moveTo(60, 50);
+    ctx.lineTo(100, 75);
+    ctx.lineTo(100, 25);
+    ctx.closePath();
+
+    ctx.fillStyle = '#8F00FF';
+    ctx.fill();
   }
 }
