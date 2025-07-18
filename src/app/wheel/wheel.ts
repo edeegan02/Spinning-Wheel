@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 //
 //
 export class Wheel implements AfterViewInit {
-  @ViewChild('arrowCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
   items: string[] = [
     'Apple',
@@ -31,7 +30,7 @@ export class Wheel implements AfterViewInit {
   spinning = false;
 
   ngAfterViewInit(): void {
-    const canvas = this.canvasRef.nativeElement;
+    // const canvas = this.canvasRef.nativeElement;
     this.drawWheel();
   }
 
@@ -153,13 +152,13 @@ export class Wheel implements AfterViewInit {
     const triangleWidth = 50;
     const triangleHeight = 80;
 
-    const tipX = centerX + radius + 20;
+    const tipX = centerX + radius + 10;
     const tipY = centerY;
 
     ctx.beginPath();
-    ctx.moveTo(60, 50);
-    ctx.lineTo(100, 75);
-    ctx.lineTo(100, 25);
+    ctx.moveTo(tipX, tipY);
+    ctx.lineTo(tipX + triangleWidth, tipY - triangleHeight / 2);
+    ctx.lineTo(tipX + triangleWidth, tipY + triangleHeight / 2);
     ctx.closePath();
 
     ctx.fillStyle = '#8F00FF';
