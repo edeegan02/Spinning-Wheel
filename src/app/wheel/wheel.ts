@@ -1,17 +1,20 @@
 // import { DragDropModule } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectorRef, ElementRef, ViewChild,  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'Wheel',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './wheel.html',
   styleUrls: ['./wheel.css'],
 })
 //
 //
 export class Wheel implements AfterViewInit {
+  constructor(private cdr: ChangeDetectorRef) {}
+  winner: string | null = null;
   private ctx!: CanvasRenderingContext2D;
   items: string[] = [
     'Apple',
@@ -29,16 +32,29 @@ export class Wheel implements AfterViewInit {
   rotationAngle = 0;
   spinning = false;
 
+itemText: string = JSON.stringify(this.items); // for textarea
+
+
   ngAfterViewInit(): void {
-    // const canvas = this.canvasRef.nativeElement;
-    this.drawWheel();
+  const storedWinner = localStorage.getItem('winner');
+  if (storedWinner) {
+    this.winner = storedWinner;
   }
+  this.drawWheel();
+}
 
   MakeArr = () => {
-    // make sure this.items is a valid array
-    this.items = JSON.stringify(this.items).split(',');
-    this.drawWheel();
-  };
+  try {
+    const parsed = JSON.parse(this.itemText);
+    if (Array.isArray(parsed)) {
+      this.items = parsed.map((item: any) => item.toString());
+      this.drawWheel();
+    }
+  } catch (e) {
+    console.error("Invalid JSON input", e);
+  }
+};
+
 
   // started code for dragging items
   //  newX = 0; newY = 0; startX = 0; startY = 0;
@@ -56,6 +72,7 @@ export class Wheel implements AfterViewInit {
   spinWheel(): void {
     if (this.spinning) return;
     this.spinning = true;
+    this.winner = null;
 
     let velocity = 100.0 * this.getRandomInteger(1, 6); // initial speed
     console.log('velocity:', velocity);
@@ -64,13 +81,37 @@ export class Wheel implements AfterViewInit {
     const animate = () => {
       if (velocity > 0.002) {
         this.rotationAngle += velocity;
-        velocity *= friction;
-        this.drawWheel();
-        requestAnimationFrame(animate);
-      } else {
-        this.spinning = false;
-      }
-    };
+          velocity *= friction;
+
+      const normalizedRotation = this.rotationAngle % (2 * Math.PI);
+      const segmentAngle = (2 * Math.PI) / this.items.length;
+      
+
+      const smallOffset = segmentAngle / 2.5; // or try /2.3, /2.7 etc. if still off
+      const adjustedRotation = (normalizedRotation + smallOffset) % (2 * Math.PI);
+      const index = (this.items.length - Math.floor(adjustedRotation / segmentAngle)) % this.items.length;
+
+      
+      this.winner = this.items[index];
+      this.cdr.detectChanges();
+
+      this.drawWheel();
+      requestAnimationFrame(animate);
+  } else {
+      this.spinning = false;
+
+      const normalizedRotation = this.rotationAngle % (2 * Math.PI);
+      const segmentAngle = (2 * Math.PI) / this.items.length;
+      const index = (this.items.length - Math.floor(normalizedRotation / segmentAngle)) % this.items.length;
+      this.winner = this.items[index];
+
+      localStorage.setItem('winner', this.winner);
+      
+      this.drawWheel();
+      this.cdr.detectChanges();
+  }
+};
+
 
     animate();
   }
@@ -97,7 +138,7 @@ export class Wheel implements AfterViewInit {
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 300;
+    const radius = 250;
     const segmentAngle = (2 * Math.PI) / this.items.length;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous draw

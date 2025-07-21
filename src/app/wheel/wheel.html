@@ -1,4 +1,7 @@
 <!-- <p style="color: white">Wheel Ig</p> -->
+<div class="winner-display">
+  <h1 *ngIf="winner" >🎉 Winner: {{ winner }} 🎉</h1>
+</div>
 
 <div class="container">
   <div class="column info">
@@ -11,12 +14,13 @@
       <button class="action-button" (click)="spinWheel()">Spin</button>
     </div>
 
-    <textarea (ngModelChange)="MakeArr()" [(ngModel)]="items"></textarea>
+    <textarea [(ngModel)]="itemText" (ngModelChange)="MakeArr()"></textarea>
   </div>
 
   <div class="column">
     <canvas
       id="myCanvas"
+      class="wheel-canvas"
       width="800"
       height="600"
       style="border: 1px solid #016064"
