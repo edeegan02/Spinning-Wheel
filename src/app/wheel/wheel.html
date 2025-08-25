@@ -1,42 +1,45 @@
-<!-- <p style="color: white">Wheel Ig</p> -->
-<div class="winner-display">
-  <h1 *ngIf="winner" >🎉 Winner: {{ winner }} 🎉</h1>
-</div>
+<div class="wheel-container" [style.backgroundColor]="backgroundColor">
+  <!-- <p style="color: white">Wheel Ig</p> -->
+  <div class="winner-display">
+    @if (!!winner){
+    <h1>🎉 Winner: {{ winner }} 🎉</h1>
+    }
+  </div>
 
-<div class="container">
-  <div class="column info">
-    <input [(ngModel)]="newItem" placeholder="Add item" />
+  <div class="container">
+    <div class="column info">
+      <input [(ngModel)]="newItem" placeholder="Add item" />
 
-    <div class="button-container">
-      <button class="action-button" id="AddItem" (click)="addItem()">
-        Add
-      </button>
-      <button class="action-button" (click)="spinWheel()">Spin</button>
+      <div class="button-container">
+        <button class="action-button" id="AddItem" (click)="addItem()">
+          Add
+        </button>
+        <button class="action-button" (click)="spinWheel()">Spin</button>
+      </div>
+
+      <textarea
+        class="textBox"
+        [(ngModel)]="itemText"
+        (blur)="MakeArr()"
+      ></textarea>
     </div>
 
-    <textarea [(ngModel)]="itemText" (ngModelChange)="MakeArr()"></textarea>
-  </div>
+    <div class="column">
+      <canvas id="myCanvas" class="wheel-canvas" width="800" height="600"
+        >Section 2
+        <div class="triangle"></div>
+      </canvas>
+      <div></div>
+    </div>
 
-  <div class="column">
-    <canvas
-      id="myCanvas"
-      class="wheel-canvas"
-      width="800"
-      height="600"
-      style="border: 1px solid #016064"
-      >Section 2
-      <div class="triangle"></div>
-    </canvas>
-    <div></div>
-
-    <!-- <canvas
-      #arrowCanvas
-      width="400"
-      height="400"
-      style="border: 1px solid #000000"
-    > -->
-    <!-- </canvas> -->
-    <!-- <button (click)="drawArrow()">Draw Arrow</button> -->
+    <div class="column" text-color: #3434>
+      <button
+        class="themes"
+        mat-raised-button
+        (click)="openColorChangerDialog()"
+      >
+        Change Theme
+      </button>
+    </div>
   </div>
-  <div class="column" text-color: #333>Section 3</div>
 </div>

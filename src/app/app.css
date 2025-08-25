@@ -1,0 +1,5 @@
+@keyframes p {
+  to {
+    background-position-x: calc(-1 * var(--s));
+  }
+}
