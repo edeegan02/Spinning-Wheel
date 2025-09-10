@@ -16,8 +16,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { MatSliderThumb } from '@angular/material/slider';
-
 @Component({
   selector: 'app-color-picker',
   standalone: true,
@@ -31,7 +29,6 @@ import { MatSliderThumb } from '@angular/material/slider';
     MatButtonModule,
     MatDividerModule,
     MatTooltipModule,
-    MatSliderThumb,
   ],
   template: `
     <mat-card class="color-picker-card">
@@ -82,8 +79,7 @@ import { MatSliderThumb } from '@angular/material/slider';
             matTooltip="Adjust Brightness"
           >
             <input matSliderThumb [(ngModel)]="brightness" />
-            ></mat-slider
-          >
+          </mat-slider>
         </div>
 
         <mat-divider></mat-divider>

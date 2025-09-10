@@ -8,13 +8,10 @@
 
   <div class="container">
     <div class="column info">
-      <input [(ngModel)]="newItem" placeholder="Add item" />
+      <input class="AddText" [(ngModel)]="newItem" placeholder="Add item" />
 
       <div class="button-container">
-        <button class="action-button" id="AddItem" (click)="addItem()">
-          Add
-        </button>
-        <button class="action-button" (click)="spinWheel()">Spin</button>
+        <button class="action-button" (click)="addItem()">Add</button>
       </div>
 
       <textarea
@@ -29,10 +26,11 @@
         >Section 2
         <div class="triangle"></div>
       </canvas>
-      <div></div>
+      <button class="spinButton" (click)="spinWheel()">Spin</button>
     </div>
 
     <div class="column" text-color: #3434>
+      <!-- <button mat-flat-button>UI?</button> -->
       <button
         class="themes"
         mat-raised-button
@@ -40,6 +38,26 @@
       >
         Change Theme
       </button>
+
+      <div class="winner-feed-container">
+        <h2>Winner Feed</h2>
+
+        @if (!!winner) {
+        <div class="current-winner">
+          <p>current winner</p>
+          <p class="winner-name">{{ winner }}</p>
+        </div>
+
+        <div class="previous-winners-list">
+          <h3>Previous Winners</h3>
+          <ul>
+            <li *ngFor="let prevWinner of previousWinners">
+              {{ prevWinner }}
+            </li>
+          </ul>
+        </div>
+        }
+      </div>
     </div>
   </div>
 </div>

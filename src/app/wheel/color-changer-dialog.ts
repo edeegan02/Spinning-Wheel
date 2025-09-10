@@ -36,6 +36,7 @@ import { ColorPickerComponent } from './color-picker';
       >
         Red
       </button>
+
       <button
         mat-button
         class="color-button blue"
@@ -43,6 +44,7 @@ import { ColorPickerComponent } from './color-picker';
       >
         Blue
       </button>
+
       <button
         mat-button
         class="color-button green"
@@ -50,6 +52,7 @@ import { ColorPickerComponent } from './color-picker';
       >
         Green
       </button>
+
       <button
         mat-button
         class="color-button yellow"
@@ -57,6 +60,7 @@ import { ColorPickerComponent } from './color-picker';
       >
         Yellow
       </button>
+
       <button
         mat-button
         class="color-button white"

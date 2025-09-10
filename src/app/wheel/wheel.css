@@ -1,14 +1,7 @@
 canvas {
   display: block;
   margin: 20px auto;
-  /* animation: rotate 60s infinite; */
 }
-
-/* @keyframes rotate {
-  50% {
-    transform: rotate(36000deg);
-  }
-} */
 
 input {
   margin: 10px;
@@ -29,6 +22,20 @@ ul {
   padding: 10px 20px;
   font-size: 1.2em;
   cursor: pointer;
+}
+
+.brightness-slider {
+  position: relative;
+}
+.matSliderThumb {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mat-slider-track-wrapper {
+  height: 4px;
+  background-color: #ccc;
+  border-radius: 2px;
 }
 
 .container {
@@ -77,6 +84,10 @@ ul {
   touch-action: manipulation;
 }
 
+.AddText {
+  width: 150px;
+}
+
 .action-button:hover {
   background-position: right center;
   /* change the direction of the change here */
@@ -87,6 +98,45 @@ ul {
 .action-button:active {
   transform: scale(0.95);
 }
+
+/* Button for spinning */
+.spinButton {
+  margin-top: 30px;
+  margin-left: 310px;
+  width: 200px;
+  height: 75px;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  border: 0px;
+  font-weight: 700;
+  box-shadow: 0px 0px 14px -7px #f09819;
+  background-image: linear-gradient(
+    45deg,
+    #ffd700 0%,
+    #ffffffea 51%,
+    #ffd700 100%
+  );
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.spinButton:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.spinButton:active {
+  transform: scale(0.95);
+}
+
+/* Button for spins end */
 
 .wheel-container {
   min-height: 100vh;
@@ -99,9 +149,6 @@ ul {
 
 .wheel-canvas {
   margin-top: 40px;
-  /* -webkit-box-shadow: 0px 0px 104px 45px rgba (247, 30, 30, 0.9);
-  -moz-box-shadow: 0px 0px 105px 45px rgba(247, 30, 30, 0.9);
-  box-shadow-shadow: 0px 0px 105px 45px rgba(231, 84, 84, 0.9); */
 }
 
 .winner-display {
@@ -140,10 +187,11 @@ ul {
   color: #000000 !important;
   box-shadow: #04a3ff 3px 3px !important;
   display: flex;
+
   /* justify-content: flex-end !important; */
   align-content: end !important;
   background-color: rgb(154, 241, 241) !important;
-  margin-left: 200px !important;
+  margin-left: 325px !important;
   width: 85px !important;
   height: 85px !important;
   border-radius: 30px !important;
@@ -153,15 +201,118 @@ ul {
   transform: scale(1.05) !important;
 }
 
-/* background-color: #e5e5f7;
-opacity: 0.8;
-background-image: radial-gradient(circle at center center, #444cf7, #e5e5f7),
-  repeating-radial-gradient(
-    circle at center center,
-    #444cf7,
-    #444cf7,
-    10px,
-    transparent 20px,
-    transparent 10px
-  );
-background-blend-mode: multiply; */
+.winner-feed-container {
+  margin-right: 20px;
+  margin-top: 30px;
+  padding: 15px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background-color: #ffffff;
+  text-align: center;
+
+  background: radial-gradient(
+        circle farthest-side at 0% 50%,
+        #b5f3f7 23.5%,
+        #0000 0
+      )
+      31.5px 45px,
+    radial-gradient(circle farthest-side at 0% 50%, #ffffff 24%, #0000 0) 28.5px
+      45px,
+    linear-gradient(#b5f3f7 14%, #0000 0, #0000 85%, #b5f3f7 0) 0 0,
+    linear-gradient(
+        150deg,
+        #b5f3f7 24%,
+        #ffffff 0,
+        #ffffff 26%,
+        #0000 0,
+        #0000 74%,
+        #ffffff 0,
+        #ffffff 76%,
+        #b5f3f7 0
+      )
+      0 0,
+    linear-gradient(
+        30deg,
+        #b5f3f7 24%,
+        #ffffff 0,
+        #ffffff 26%,
+        #0000 0,
+        #0000 74%,
+        #ffffff 0,
+        #ffffff 76%,
+        #b5f3f7 0
+      )
+      0 0,
+    linear-gradient(90deg, #ffffff 2%, #b5f3f7 0, #b5f3f7 98%, #ffffff 0%) 0 0
+      #b5f3f7;
+  background-size: 60px 90px;
+  background-color: #b5f3f7;
+
+  /* animation: rotate-bg-color 10s infinite; */
+
+  /* background-size: 52px 30px; */
+}
+
+.current-winner {
+  margin-bottom: 20px;
+}
+
+.winner-name {
+  font-size: 2em;
+  font-weight: bold;
+  color: #000000;
+}
+
+.previous-winners-list h3 {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 5px;
+}
+
+.previous-winners-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.previous-winners-list li {
+  font-size: 20px;
+  padding: 5px 0;
+  color: #000000;
+}
+
+@keyframes rotate-bg-color {
+  0% {
+    background-color: rgb(131, 19, 19);
+  }
+  10% {
+    background-color: rgb(202, 121, 14);
+  }
+  20% {
+    background-color: rgba(203, 206, 33, 0.952);
+  }
+  30% {
+    background-color: rgb(141, 201, 30);
+  }
+  40% {
+    background-color: rgb(28, 207, 52);
+  }
+  50% {
+    background-color: rgb(24, 207, 168);
+  }
+  60% {
+    background-color: rgb(16, 134, 212);
+  }
+  70% {
+    background-color: rgb(56, 27, 216);
+  }
+  80% {
+    background-color: rgb(186, 36, 231);
+  }
+  90% {
+    background-color: rgb(216, 23, 168);
+  }
+  100% {
+    background-color: rgb(201, 40, 61);
+  }
+}
